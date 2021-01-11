@@ -8,3 +8,5 @@ services:
     image: postgres:13
     env_file:
       - ./postgres/postgres.env
+    ports:
+      - 5432:5432
