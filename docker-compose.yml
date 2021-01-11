@@ -3,10 +3,22 @@ services:
   curator:
     build: ./curator
     volumes:
-      - ${PWD}/curator/curator.conf:/code/Curator/curator.conf
+      - type: bind
+        source: ./curator/curator.conf
+        target: /code/Curator/curator.conf
+    depends_on:
+      db:
+        condition: service_healthy
   db:
     image: postgres:13
-    env_file:
-      - ./postgres/postgres.env
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
     ports:
-      - 5432:5432
+      - 5555:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
