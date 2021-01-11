@@ -4,3 +4,7 @@ services:
     build: ./curator
     volumes:
       - ${PWD}/curator/curator.conf:/code/Curator/curator.conf
+  db:
+    image: postgres:13
+    env_file:
+      - ./postgres/postgres.env

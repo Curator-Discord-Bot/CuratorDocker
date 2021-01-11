@@ -1,2 +1,4 @@
 
 curator/curator.conf
+
+*.env
