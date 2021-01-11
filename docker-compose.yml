@@ -1,0 +1,6 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  curator:
+    build: ./curator
+    volumes:
+      - ${PWD}/curator/curator.conf:/code/Curator/curator.conf
